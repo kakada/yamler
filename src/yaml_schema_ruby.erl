@@ -63,7 +63,7 @@ resolve_scalar_tag(null, <<"false">>, plain, _State)      -> {ok, 'tag:yaml.org,
 
 resolve_scalar_tag(null, <<$:, _/binary>>, plain, _)     -> {ok, '!ruby/symbol'};
 resolve_scalar_tag(null, Value, plain, _) ->
-  case re:run(Value, "^\\d+$", [{capture, none}]) of
+  case re:run(Value, "^[^0]\\d+$", [{capture, none}]) of
     match   -> {ok, 'tag:yaml.org,2002:int'};
     nomatch -> {ok, 'tag:yaml.org,2002:str'}
   end;
